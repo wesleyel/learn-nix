@@ -1,0 +1,21 @@
+# Nix结果
+result
+result-*
+
+# 环境变量
+.env
+
+# direnv环境文件
+.direnv/
+
+# 编辑器文件
+*~
+\#*\#
+.\#*
+.vscode/
+.idea/
+
+# 系统文件
+.DS_Store
+*.swp
+*.swo 
