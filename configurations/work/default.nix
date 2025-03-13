@@ -1,8 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, envVars, ... }:
 
 let
-  gitUserName = builtins.getEnv "GIT_USER_NAME";
-  gitUserEmail = builtins.getEnv "GIT_USER_EMAIL";
+  # 首先尝试从传入的envVars中读取，如果没有则回退到环境变量
+  gitUserName = if envVars ? GIT_USER_NAME then envVars.GIT_USER_NAME else config.git.userName;
+  gitUserEmail = if envVars ? GIT_USER_EMAIL then envVars.GIT_USER_EMAIL else config.git.userEmail;
 in
 {
   imports = [

@@ -7,5 +7,6 @@
     bat
     ripgrep
     git
+    direnv
   ];
 } 

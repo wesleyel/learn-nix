@@ -35,7 +35,7 @@ nix build --no-link .#homeConfigurations.personal.activationPackage
 修改配置文件后，执行以下命令应用更改：
 
 ```bash
-home-manager switch --flake .#work
+home-manager switch --flake .#work --impure
 ```
 
 ## 自定义

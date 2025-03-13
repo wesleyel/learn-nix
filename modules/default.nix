@@ -2,7 +2,8 @@
 {
   imports = [
     ./base.nix
-    ./git.nix
     ./packages.nix
+    ./git.nix
+    ./direnv.nix
   ];
 } 
