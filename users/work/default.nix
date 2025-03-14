@@ -1,4 +1,4 @@
-{ pkgs, secrets, ... }:
+{ pkgs, secrets, lib, ... }:
 {
   homeMods = {
     home = rec {
@@ -7,17 +7,14 @@
       flakeDirectory = "/home/${username}/dotfiles";
     }; 
     btop.enable = true;
+    git = {
+      enable = true;
+      userName = secrets.work.username;
+      userEmail = secrets.work.email;
+    };
   };
   home.packages = with pkgs; [
     
   ];
-  programs.git = {
-    enable = true;
-    userName = secrets.personal.username;
-    userEmail = secrets.personal.email;
-    extraConfig = {
-      init.defaultBranch = "main";
-    };
-  };
   home.stateVersion = "22.11";
 }
