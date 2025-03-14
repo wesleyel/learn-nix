@@ -1,11 +1,16 @@
-{ pkgs, secrets, lib, ... }:
+{
+  pkgs,
+  secrets,
+  lib,
+  ...
+}:
 {
   homeMods = {
     home = rec {
       username = "${secrets.personal.username}";
       homeDirectory = "/home/${username}";
       flakeDirectory = "/home/${username}/dotfiles";
-    }; 
+    };
     btop.enable = true;
     git = {
       enable = true;
@@ -14,7 +19,7 @@
     };
   };
   home.packages = with pkgs; [
-    
+
   ];
   home.stateVersion = "22.11";
 }

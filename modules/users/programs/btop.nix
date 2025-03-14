@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.homeMods.btop;
   catppuccin-mocha = pkgs.fetchFromGitHub {
@@ -10,7 +15,7 @@ let
 in
 {
   options.homeMods.btop = with lib.types; {
-    enable = lib.mkEnableOption "Enable"; 
+    enable = lib.mkEnableOption "Enable";
     update_ms = lib.mkOption {
       default = 500;
       type = int;

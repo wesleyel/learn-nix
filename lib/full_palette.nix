@@ -1,7 +1,7 @@
 { lib, ... }:
 let
   conv = import ./color_convert.nix { inherit lib; };
-in 
+in
 {
   # Given a hex palette
   # (which is a attrset names being the color names, values being hex colors)
@@ -15,7 +15,7 @@ in
   # }
   fullPalette = palette: {
     hex = palette;
-    rgb = lib.mapAttrs (_: color: conv.hexToRGB color) palette;  
-    rgbComma = lib.mapAttrs (_: color: conv.hexToRGBString "," color) palette;  
+    rgb = lib.mapAttrs (_: color: conv.hexToRGB color) palette;
+    rgbComma = lib.mapAttrs (_: color: conv.hexToRGBString "," color) palette;
   };
 }

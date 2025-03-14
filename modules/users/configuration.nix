@@ -1,5 +1,14 @@
-{ config, lib, profile, inputs, pkgs, ... }:
-let cfg = config.homeMods.home; in 
+{
+  config,
+  lib,
+  profile,
+  inputs,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.homeMods.home;
+in
 {
   options.homeMods.home = with lib.types; {
     username = lib.mkOption {
@@ -17,21 +26,24 @@ let cfg = config.homeMods.home; in
   config = {
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
-    nixpkgs.config.allowUnfree = true; 
+    nixpkgs.config.allowUnfree = true;
     fonts.fontconfig.enable = true;
     nix = {
       package = pkgs.nix;
       # Enable nix command and flakes
-      settings.experimental-features = [ "nix-command" "flakes" ];
+      settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       # Pin registry to flake
       registry.nixpkgs.flake = inputs.nixpkgs;
       # Automatic garbase collection
       gc = {
-        automatic = true;  
+        automatic = true;
         frequency = "weekly";
         options = "--delete-older-than 14d";
       };
-    }; 
+    };
     home = {
       username = cfg.username;
       homeDirectory = cfg.homeDirectory;
@@ -41,8 +53,11 @@ let cfg = config.homeMods.home; in
         home-switch = "home-manager switch --flake path:${cfg.flakeDirectory}#${profile}";
       };
 
-      packages = with pkgs; [
-      ] ++ (import ../shared/packages.nix pkgs inputs);
+      packages =
+        with pkgs;
+        [
+        ]
+        ++ (import ../shared/packages.nix pkgs inputs);
     };
 
     # Home Manager needs a bit of information about you and the

@@ -5,17 +5,17 @@
 
 # Function: hexToDec
 # Desciption: Converts hex to decimal
-# Args: string 
+# Args: string
 # Example: hexToDec "11111B" => 1118491
 
 # Function: hexToRGB
-# Desciption: Converts hex to RGB as a list  
-# Args: string 
+# Desciption: Converts hex to RGB as a list
+# Args: string
 # Example: hexToRGB "11111B" => [ 17 17 27 ]
 
 # Function: hexToDec
 # Desciption: Converts hex to RGB as a string
-# Args: string string 
+# Args: string string
 # Example: hexToRGBString "," "11111B" => "17,17,27"
 
 { lib, ... }:
@@ -39,29 +39,33 @@ let
     "f" = 15;
   };
 
-  /* Base raised to the power of the exponent.
+  /*
+    Base raised to the power of the exponent.
 
-     Type: pow :: int or float -> int -> int
+    Type: pow :: int or float -> int -> int
 
-     Args:
-       base: The base.
-       exponent: The exponent.
+    Args:
+      base: The base.
+      exponent: The exponent.
 
-     Example:
-       pow 0 1000
-       => 0
-       pow 1000 0
-       => 1
-       pow 2 30
-       => 1073741824
-       pow 3 3
-       => 27
-       pow (-5) 3
-       => -125
+    Example:
+      pow 0 1000
+      => 0
+      pow 1000 0
+      => 1
+      pow 2 30
+      => 1073741824
+      pow 3 3
+      => 27
+      pow (-5) 3
+      => -125
   */
-  pow = base: exponent:
-    let inherit (lib) mod;
-    in if exponent > 1 then
+  pow =
+    base: exponent:
+    let
+      inherit (lib) mod;
+    in
+    if exponent > 1 then
       let
         x = pow base (exponent / 2);
         odd_exp = mod exponent 2 == 1;
@@ -76,44 +80,47 @@ let
     else
       throw "undefined";
 
-  /* Conversion from base 16 to base 10 with a exponent. Is of the form
-     scalar * 16 ** exponent.
+  /*
+    Conversion from base 16 to base 10 with a exponent. Is of the form
+    scalar * 16 ** exponent.
 
-     Type: base16To10 :: int -> int -> int
+    Type: base16To10 :: int -> int -> int
 
-     Args:
-       exponent: The exponent for the base, 16.
-       scalar: The value to multiple to the exponentiated base.
+    Args:
+      exponent: The exponent for the base, 16.
+      scalar: The value to multiple to the exponentiated base.
 
-     Example:
-       base16To10 0 11
-       => 11
-       base16To10 1 3
-       => 48
-       base16To10 2 7
-       1792
-       base16To10 3 14
-       57344
+    Example:
+      base16To10 0 11
+      => 11
+      base16To10 1 3
+      => 48
+      base16To10 2 7
+      1792
+      base16To10 3 14
+      57344
   */
   base16To10 = exponent: scalar: scalar * pow 16 exponent;
 
-  /* Converts a hexadecimal character to decimal.
-     Only takes a string of length 1.
+  /*
+    Converts a hexadecimal character to decimal.
+    Only takes a string of length 1.
 
-     Type: hexCharToDec :: string -> int
+    Type: hexCharToDec :: string -> int
 
-     Args:
-       hex: A hexadecimal character.
+    Args:
+      hex: A hexadecimal character.
 
-     Example:
-       hexCharToDec "5"
-       => 5
-       hexCharToDec "e"
-       => 14
-       hexCharToDec "A"
-       => 10
+    Example:
+      hexCharToDec "5"
+      => 5
+      hexCharToDec "e"
+      => 14
+      hexCharToDec "A"
+      => 10
   */
-  hexCharToDec = hex:
+  hexCharToDec =
+    hex:
     let
       inherit (lib) toLower;
       lowerHex = toLower hex;
@@ -126,48 +133,61 @@ let
       throw "Character ${hex} is not a hexadecimal value.";
 in
 rec {
-  /* Converts from hexadecimal to decimal.
+  /*
+    Converts from hexadecimal to decimal.
 
-     Type: hexToDec :: string -> int
+    Type: hexToDec :: string -> int
 
-     Args:
-       hex: A hexadecimal string.
+    Args:
+      hex: A hexadecimal string.
 
-     Example:
-       hexadecimal "12"
-       => 18
-       hexadecimal "FF"
-       => 255
-       hexadecimal "abcdef"
-       => 11259375
+    Example:
+      hexadecimal "12"
+      => 18
+      hexadecimal "FF"
+      => 255
+      hexadecimal "abcdef"
+      => 11259375
   */
-  hexToDec = hex:
+  hexToDec =
+    hex:
     let
-      inherit (lib) stringToCharacters reverseList imap0 foldl;
+      inherit (lib)
+        stringToCharacters
+        reverseList
+        imap0
+        foldl
+        ;
       decimals = builtins.map hexCharToDec (stringToCharacters hex);
       decimalsAscending = reverseList decimals;
       decimalsPowered = imap0 base16To10 decimalsAscending;
     in
     foldl builtins.add 0 decimalsPowered;
 
-  /* Converts a 6 character hexadecimal string to RGB values.
+  /*
+    Converts a 6 character hexadecimal string to RGB values.
 
-     Type: hexToRGB :: string => [int]
+    Type: hexToRGB :: string => [int]
 
-     Args:
-       hex: A hexadecimal string of length 6.
+    Args:
+      hex: A hexadecimal string of length 6.
 
-     Example:
-       hexToRGB "012345"
-       => [ 1 35 69 ]
-       hexToRGB "abcdef"
-       => [171 205 239 ]
-       hexToRGB "000FFF"
-       => [ 0 15 255 ]
+    Example:
+      hexToRGB "012345"
+      => [ 1 35 69 ]
+      hexToRGB "abcdef"
+      => [171 205 239 ]
+      hexToRGB "000FFF"
+      => [ 0 15 255 ]
   */
-  hexToRGB = hex:
+  hexToRGB =
+    hex:
     let
-      rgbStartIndex = [ 0 2 4 ];
+      rgbStartIndex = [
+        0
+        2
+        4
+      ];
       hexList = builtins.map (x: builtins.substring x 2 hex) rgbStartIndex;
       hexLength = builtins.stringLength hex;
     in
@@ -179,16 +199,18 @@ rec {
     else
       builtins.map hexToDec hexList;
 
-  /* Converts a 6 character hexadecimal string to an RGB string seperated by a
-     delimiter.
+  /*
+    Converts a 6 character hexadecimal string to an RGB string seperated by a
+    delimiter.
 
-     Type: hexToRGBString :: string -> string
+    Type: hexToRGBString :: string -> string
 
-     Args:
-       sep: The delimiter or seperator.
-       hex: A hexadecimal string of length 6.
+    Args:
+      sep: The delimiter or seperator.
+      hex: A hexadecimal string of length 6.
   */
-  hexToRGBString = sep: hex:
+  hexToRGBString =
+    sep: hex:
     let
       inherit (builtins) map toString;
       inherit (lib) concatStringsSep;

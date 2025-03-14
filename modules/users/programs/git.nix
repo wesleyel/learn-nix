@@ -1,10 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.homeMods.git;
 in
 {
   options.homeMods.git = with lib.types; {
-    enable = lib.mkEnableOption "Enable"; 
+    enable = lib.mkEnableOption "Enable";
     userName = lib.mkOption {
       type = str;
       default = "";
