@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+
+# Nix Home manager Config
+
+- 无需创建README.md文件或修改README.md文件
+- 重视代码复用，减少重复代码
+- 参考Nix文档
