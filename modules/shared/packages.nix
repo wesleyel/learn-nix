@@ -11,4 +11,5 @@ pkgs: inputs: with pkgs; [
   tree
   vim
   git-crypt
+  nixfmt-rfc-style
 ]

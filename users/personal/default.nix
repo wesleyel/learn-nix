@@ -12,6 +12,7 @@
       flakeDirectory = "/home/${username}/dotfiles";
     };
     btop.enable = true;
+    zsh.enable = true;
     git = {
       enable = true;
       userName = secrets.personal.username;
