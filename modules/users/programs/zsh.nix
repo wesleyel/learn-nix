@@ -10,6 +10,11 @@ in
 {
   options.homeMods.zsh = {
     enable = lib.mkEnableOption "Enable";
+    secrets = lib.mkOption {
+      type = types.attrs;
+      description = "Git secrets configuration";
+      default = { };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -37,6 +42,15 @@ in
           file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
         }
       ];
+      envExtra = ''
+        # proxy
+        export http_proxy="${cfg.secrets.http_proxy}"
+        export https_proxy="${cfg.secrets.http_proxy}"
+        export HTTP_PROXY="${cfg.secrets.http_proxy}"
+        export HTTPS_PROXY="${cfg.secrets.http_proxy}"
+        export no_proxy="${cfg.secrets.no_proxy}"
+        export NO_PROXY="${cfg.secrets.no_proxy}"
+      '';
 
       initExtra =
         ''

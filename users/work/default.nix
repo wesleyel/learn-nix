@@ -6,17 +6,21 @@
 }:
 {
   homeMods = {
+    the-secrets = secrets.work;
     home = rec {
-      username = "${secrets.work.username}";
+      username = "${the-secrets.username}";
       homeDirectory = "/home/${username}";
       flakeDirectory = "/home/${username}/dotfiles";
     };
+
     btop.enable = true;
-    zsh.enable = true;
+    zsh = {
+      enable = true;
+      secrets = the-secrets;
+    };
     git = {
       enable = true;
-      userName = secrets.work.username;
-      userEmail = secrets.work.email;
+      secrets = the-secrets;
     };
   };
   home.packages = with pkgs; [
