@@ -8,6 +8,7 @@
     github-cli
     jq
     just
+    nixfmt-rfc-style
     p7zip
     python3
     qrencode
