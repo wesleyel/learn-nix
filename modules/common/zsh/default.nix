@@ -11,6 +11,7 @@
     ".zsh-extra".text = ''
       JQ_ZSH_PLUGIN_EXPAND_ALIASES=0
       z4h source -- ${pkgs.jq-zsh-plugin}/share/jq-zsh-plugin/jq.plugin.zsh
+      z4h source -- /etc/profile.d/nix.sh
 
       # proxy
       export http_proxy="${secrets.http_proxy}"
