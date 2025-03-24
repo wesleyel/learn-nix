@@ -1,5 +1,15 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
+    # frontend
+    bun
+    pnpm
+    deno
+    # backend
+    cargo
+    rustc
+    uv
+
+    # utils
     dust
     eza
     fd
@@ -15,6 +25,7 @@
     rsync
     tree
     unzip
+    vim
     zip
     zsh
   ];
