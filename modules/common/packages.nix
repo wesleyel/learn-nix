@@ -8,6 +8,10 @@
     cargo
     rustc
     uv
+    python312
+    python312Packages.pandas
+    python312Packages.numpy
+    python312Packages.matplotlib
 
     # utils
     dust
@@ -28,5 +32,8 @@
     vim
     zip
     zsh
+
+    # nix
+    home-manager
   ];
 }
