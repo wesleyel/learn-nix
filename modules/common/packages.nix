@@ -5,8 +5,7 @@
     pnpm
     deno
     # backend
-    cargo
-    rustc
+    rustup
     uv
     python312
     python312Packages.pandas

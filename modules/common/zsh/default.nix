@@ -33,7 +33,7 @@
       share = true;
     };
 
-    initExtra = ''
+    envExtra = ''
       # proxy
       export http_proxy="${secrets.http_proxy}"
       export https_proxy="${secrets.http_proxy}"
@@ -41,6 +41,11 @@
       export HTTPS_PROXY="${secrets.http_proxy}"
       export no_proxy="${secrets.no_proxy}"
 
+      # rust-src
+      export RUST_SRC_PATH="${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}"
+    '';
+
+    initExtra = ''
       source ${./.zsh-aliases}
       source ${./.zsh-keybinds}
     '';
