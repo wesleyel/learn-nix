@@ -4,6 +4,7 @@
     bun
     pnpm
     deno
+    nodejs_22
     # backend
     rustup
     uv
