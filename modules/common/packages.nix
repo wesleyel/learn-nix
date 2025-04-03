@@ -5,6 +5,7 @@
     pnpm
     deno
     nodejs_22
+
     # backend
     rustup
     uv
@@ -14,6 +15,7 @@
     python312Packages.matplotlib
 
     # utils
+    direnv
     dust
     eza
     fd
@@ -35,5 +37,6 @@
 
     # nix
     home-manager
+    nix-direnv
   ];
 }
