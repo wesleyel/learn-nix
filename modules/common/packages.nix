@@ -7,7 +7,6 @@
     nodejs_22
 
     # backend
-    rustup
     uv
     python312
     python312Packages.pandas
