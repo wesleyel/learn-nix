@@ -6,7 +6,7 @@ let
 in
 inputs.home-manager.lib.homeManagerConfiguration {
   pkgs = inputs.nixpkgs.legacyPackages.${system};
-  extraSpecialArgs = { inherit secrets user; };
+  extraSpecialArgs = { inherit secrets user inputs; };
   modules = [
     {
       home = {

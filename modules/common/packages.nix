@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, inputs, ... }: {
   home.packages = with pkgs; [
     # frontend
     bun
@@ -21,6 +21,7 @@
     fd
     fzf
     git
+    git-crypt
     github-cli
     jq
     just
